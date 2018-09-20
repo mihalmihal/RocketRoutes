@@ -1,0 +1,9 @@
+
+###> symfony/framework-bundle ###
+/.env
+/public/bundles/
+/var/
+/vendor/
+/.vscode
+test.php
+###< symfony/framework-bundle ###

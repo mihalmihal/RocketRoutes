@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Test Application</title>       
+        <meta name="viewport" content="initial-scale=1.0">
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        <div class="header" id="header">
+            {% block header %}{% endblock %}
+        </div>
+        <div id="content">
+            {% block body %}{% endblock %}
+        </div>
+        <footer>        
+            {% block javascripts %}{% endblock %}
+        </footer>
+    </body>
+</html>

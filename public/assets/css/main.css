@@ -1,0 +1,36 @@
+html, body {
+	padding: 0px;
+	margin: 0px;
+}
+.header {
+	background-color: rgb(241, 241, 241);	
+	padding-top: 1px;
+	padding-bottom: 1px;
+} 
+
+h1 {
+
+	padding-left: 15px;
+}
+
+form {
+	color: #6191d0;
+    font-family: arial, sans-serif;
+    font-weight: normal;
+    margin: 15px;
+}
+#map {
+	height: 500px;
+}
+
+.error {
+	border: 1px solid #f51b1b;
+	-webkit-box-shadow: 0px 0px 7px 0px #f51b1b;
+    -moz-box-shadow: 0px 0px 7px 0px #f51b1b;
+    box-shadow: 0px 0px 7px 0px #f51b1b;
+}
+.error-text {
+	font-size: 13px;
+	font-style:italic;
+	color: #f51b1b;
+}

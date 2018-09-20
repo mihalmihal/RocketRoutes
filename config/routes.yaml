@@ -1,0 +1,7 @@
+index:
+    path: /
+    controller: App\Controller\MainController::index
+notam: 
+    path: /notam
+    controller: App\Controller\NotamController::index
+    methods:    [GET]
