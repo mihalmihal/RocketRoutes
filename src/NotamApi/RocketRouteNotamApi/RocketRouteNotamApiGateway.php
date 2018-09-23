@@ -3,18 +3,29 @@ namespace App\NotamApi\RocketRouteNotamApi;
 use App\Helper\DmsCoordinatesToDecimal;
 use App\NotamApi\NotamResponce;
 use App\NotamApi\NotamApiGatewayInterface;
+use App\NotamApi\RocketRouteNotamApi\Soap;
 
 class RocketRouteNotamApiGateway implements NotamApiGatewayInterface
 {
-    const PASSWORD = 'zqcpMNk2nmxfaVtM3PBd';
-    const WSDl = 'https://apidev.rocketroute.com/notam/v1/service.wsdl';    
+    const PASSWORD = 'zqcpMNk2nmxfaVtM3PBd';       
     const USER = 'a.mykhalchyshyn@gmail.com';
 
-    public function findByIcao(string $icao) : ?array
+    private $soap;
+    private $password;
+    private $user;
+
+
+    public function __construct(Soap $soap)
     {
-        $soapClient = new \SoapClient(self::WSDl);     
+        $this->soap = $soap;
+        $this->password = getenv('ROCKETROUTE_PASSWORD');
+        $this->user = getenv('ROCKETROUTE_USER');
+    }
+
+    public function findByIcao(string $icao) : ?array
+    {        
         $request = $this->formatRequest($icao);           
-        $notam = $soapClient->getNotam($request);
+        $notam = $this->soap->makeRequest('getNotam', $request);
         return $this->formatResponce($notam);
     }
 
@@ -30,14 +41,16 @@ class RocketRouteNotamApiGateway implements NotamApiGatewayInterface
 
     private function formatResponce(string $notam) : array
     {
+        libxml_use_internal_errors(true);
         $result = [];
-        $xml = simplexml_load_string($notam);        
+        $xml = simplexml_load_string($notam);            
         if (!$xml) {
             throw new \Exception('cannot parse xml from responce');            
+        }        
+        if ($xml->RESULT != 0) {
+            throw new \Exception('request error ' . $xml->MESSAGE);            
         }
-        if ($xml->REQNOTAM->RESULT != 0) {
-            throw new \Exception('request error' . $xml->MESSAGE);            
-        }
+        
         foreach ($xml->NOTAMSET->NOTAM as $notam) {
             $notamResponce = $this->parseSingleNotam($notam);
             if ($notamResponce) {

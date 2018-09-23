@@ -32,7 +32,7 @@ class NotamController
             $error = 'wrong icao code format';
         } else {
             try{
-                $notams = $this->notamApiGateway->findByIcao($icao);                
+                $notams = $this->notamApiGateway->findByIcao($icao);                           
                 if (empty($notams)) {
                     $error = 'nothing was found for ICAO ' . $icao;
                 } else {                

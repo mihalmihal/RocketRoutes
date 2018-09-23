@@ -21,8 +21,8 @@ class DmsCoordinatesToDecimal
             $longitude = strstr($originalGeoLocation, 'W')? '-'.$longitude : $longitude;
             $latitude =  strstr($originalGeoLocation, 'S')? '-'.$latitude : $latitude;
             $returnArray = [
-                'latitude' => $latitude,
-                'longitude' => $longitude,                
+                'latitude' => round($latitude, 2),
+                'longitude' => round($longitude, 2)                
             ];
             return $returnArray;
         } else {
