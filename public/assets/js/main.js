@@ -61,11 +61,12 @@ var App = {
                 var marker = new google.maps.Marker({
                     position: location,      
                     animation: google.maps.Animation.DROP,              
-                    title: notam.id
+                    title: notam.id,
+                    icon: assetsBaseDir + 'image/warning-sign-pin.png'
                 });
                      
                 marker.setMap(map);                
-               (function (marker, notam) {
+                (function (marker, notam) {
                     google.maps.event.addListener(marker, "click", function (e) {                        
                         infoWindow.setContent("<div>" + notam.notice + "</div>");
                         infoWindow.open(map, marker);

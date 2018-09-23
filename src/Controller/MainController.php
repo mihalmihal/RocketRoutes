@@ -7,7 +7,8 @@ class MainController extends AbstractController
 
     public function index()
     {        
-        return $this->render('app/index.html.twig');
+    	$mapKey = getenv('GOOGLE_MAPS_KEY');
+        return $this->render('app/index.html.twig', ['key' => $mapKey]);
     }
     
 }
